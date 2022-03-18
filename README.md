@@ -4,7 +4,9 @@
 
 
 
-## 
+## 内容介绍
+- `Docs`：包括竞赛过程中的文字报告，如`项目计划书`，`项目论文`等
+- `References`：包括所用参考文献内容，通过notion进行[文献管理](https://swamp-maraca-1c5.notion.site/5c17b655b6a2430f8702d1dd13302f27?v=a24ed3d7d7be468581a8f53b17c56178)
 
 
 ## 前端网页展示步骤
