@@ -168,24 +168,40 @@ def return_figures():
 
 
 
-    layout_two = dict(title = 'Hectares Arable Land per Person in 2015',
-                xaxis = dict(title = 'Country',),
-                yaxis = dict(title = 'Hectares per person'),
-                )
+    # layout_two = dict(title = 'Hectares Arable Land per Person in 2015',
+    #             xaxis = dict(title = 'Country',),
+    #             yaxis = dict(title = 'Hectares per person'),
+    #             )
+
+    from urllib.request import urlopen
+    import json
+    with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
+        counties = json.load(response)
+
+    import pandas as pd
+    df = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/master/fips-unemp-16.csv",
+                     dtype={"fips": str})
+
+    import plotly.express as px
+
+    fig = px.choropleth_mapbox(df, geojson=counties, locations='fips', color='unemp',
+                               color_continuous_scale="Viridis",
+                               range_color=(0, 12),
+                               mapbox_style="carto-positron",
+                               zoom=3, center={"lat": 37.0902, "lon": -95.7129},
+                               opacity=0.5,
+                               labels={'unemp': 'unemployment rate'}
+                               )
+    # fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+
     # TODO: once the data is clean, make a list called graph_five and append the plotly graph to this list.
     graph_five = []
 
     graph_five.append(
-      go.Bar(
-      x = df.country.tolist(),
-      y = df['Rural population'].tolist(),
-      )
+      fig
     )
     # TODO: fill a layout variable for the fifth visualization
-    layout_five = dict(title = 'new',
-                xaxis = dict(title = 'Country',),
-                yaxis = dict(title = 'Rural population'),
-                )
+    layout_five = dict(margin={"r": 0, "t": 0, "l": 0, "b": 0})
     # append all charts to the figures list
     figures = []
     figures.append(dict(data=graph_one, layout=layout_one))

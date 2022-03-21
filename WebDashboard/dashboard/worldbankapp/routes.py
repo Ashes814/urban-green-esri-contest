@@ -18,8 +18,3 @@ def index():
     return render_template('index.html',
                            ids=ids,
                            figuresJSON=figuresJSON)
-
-@app.route('/')
-@app.route('/team')
-def team():
-    return render_template('team.html')
